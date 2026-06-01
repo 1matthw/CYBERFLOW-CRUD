@@ -24,6 +24,8 @@ LINUX:
 
 
 2. Crie o banco de dados manualmente utilizando o código SQL disponivel no arquivo `schema.sql`.
+
+   
 Obs: Caso o banco de dados não seja criado, o projeto não será inicializado e retornará um erro, certifique-se de criar o banco antes de executá-lo.
 
 
