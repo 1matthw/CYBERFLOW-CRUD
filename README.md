@@ -11,14 +11,16 @@ Projeto CYBERFLOW - CRUD acadêmico de um e-commerce com login, cadastro, catál
 1. Crie e ative o ambiente virtual.
 
 WINDOWS:
-> python -m venv .venv
-> 
-> .\.venv\Scripts\activate
+
+python -m venv .venv
+
+.\.venv\Scripts\activate
 
 LINUX:
-> python3 -m venv venv
-> 
-> source venv/bin/activate
+
+python3 -m venv venv
+
+source venv/bin/activate
 
 
 2. Crie o banco de dados manualmente utilizando o código SQL disponivel no arquivo `schema.sql`.
