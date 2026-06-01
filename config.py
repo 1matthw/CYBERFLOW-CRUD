@@ -6,7 +6,7 @@ from urllib.parse import quote_plus
 
 
 def carregar_env():
-    # Carrega variáveis locais sem exigir dependências extras no projeto.
+    # Carrega variáveis locais.
     env_path = Path(__file__).with_name(".env")
 
     if not env_path.exists():
@@ -27,7 +27,7 @@ carregar_env()
 
 
 class Config:
-    # Centraliza as configurações de conexão, sessão e segurança da aplicação.
+    # Centraliza as configurações de conexão, sessão e segurança.
     SECRET_KEY = os.getenv("SECRET_KEY", "chave-dev")
     MYSQL_HOST = os.getenv("MYSQL_HOST", "localhost")
     MYSQL_PORT = int(os.getenv("MYSQL_PORT", "3306"))
@@ -37,7 +37,7 @@ class Config:
     PERMANENT_SESSION_LIFETIME = timedelta(minutes=30)
     INACTIVITY_TIMEOUT_SECONDS = 900
 
-    # Valida o nome do banco antes de montar as URLs de conexão.
+    # Valida o nome do banco.
     if not re.fullmatch(r"[A-Za-z0-9_]+", MYSQL_DATABASE):
         raise ValueError("MYSQL_DATABASE deve conter apenas letras, números e underscore.")
 
