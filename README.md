@@ -1,5 +1,5 @@
 # CYBERFLOW
-Sistema web acadêmico desenvolvido para gerenciamento de pedidos e controle operacional de uma loja de equipamentos e serviços de tecnologia.
+Sistema CRUD web acadêmico desenvolvido para gerenciamento de pedidos e controle operacional de uma loja de equipamentos e serviços de tecnologia.
 
 ## Objetivo
 Centralizar o gerenciamento de clientes, produtos, pedidos e usuários em uma única plataforma, oferecendo maior controle sobre o fluxo de vendas e acompanhamento das operações do negócio.
