@@ -70,6 +70,7 @@ source venv/bin/activate
 
 
 **4.** Configure as credenciais do MySQL
+
 Configure as credenciais de acesso ao banco de dados no arquivo ".env".
 
 Valores padrão:
