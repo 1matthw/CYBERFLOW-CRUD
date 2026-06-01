@@ -1,60 +1,94 @@
-# CYBERFLOW CRUD
-Projeto CYBERFLOW - CRUD acadêmico de um e-commerce com login, cadastro, catálogo, categorias, carrinho, pedidos, entre outras funcionalidades.
+# CYBERFLOW
+Sistema web acadêmico desenvolvido para gerenciamento de pedidos e controle operacional de uma loja de equipamentos e serviços de tecnologia.
 
-## Tecnologias utilizadas
+## Objetivo
+Centralizar o gerenciamento de clientes, produtos, pedidos e usuários em uma única plataforma, oferecendo maior controle sobre o fluxo de vendas e acompanhamento das operações do negócio.
+
+## Principais Funcionalidades
+
+- Autenticação de usuários com controle de sessão.
+- Cadastro e gerenciamento de clientes.
+- Cadastro e manutenção de produtos.
+- Controle de categorias de produtos.
+- Registro e acompanhamento de pedidos.
+- Carrinho de compras integrado ao fluxo de vendas.
+- Painel administrativo para gerenciamento das informações do sistema.
+- Proteção contra envio indevido de formulários através de CSRF.
+
+## Tecnologias Utilizadas
+
+**Backend**
+
+- Python 3
 - Flask
-- MySQL
 - SQLAlchemy
-- WTForms
+- Flask-Login
+- Flask-WTF
 
-## Como inicializar o projeto corretamente
-1. Crie e ative o ambiente virtual.
+**Banco de Dados**
 
-WINDOWS:
+- MySQL
 
-> python -m venv .venv
+**Frontend**
 
-> .\\.venv\Scripts\activate
+- HTML5
+- CSS3
+- JavaScript
+
+## Como inicializar o projeto
+
+**1.** Crie e ative o ambiente virtual.
+
+**WINDOWS:**
+
+```
+python -m venv .venv
+.\\.venv\Scripts\activate
+```
 
 LINUX:
 
-> python3 -m venv venv
+```
+python3 -m venv venv
+source venv/bin/activate
+```
 
-> source venv/bin/activate
+**2.** Criar o banco de dados
+Crie o banco de dados utilizando o script SQL disponibilizado no arquivo "schema.sql".
+«Importante: o banco de dados deve ser criado antes da execução da aplicação. Caso contrário, o sistema não será inicializado corretamente.»
 
-
-2. Crie o banco de dados manualmente utilizando o código SQL disponivel no arquivo `schema.sql`.
-
-   
-> Obs: Caso o banco de dados não seja criado, o projeto não será inicializado e retornará um erro, certifique-se de criar o banco antes de executá-lo.
-
-
-4. Instale as dependências necessárias.
+3. Instalar as dependências
 
 > pip install -r requirements.txt
 
-4. Configure as credenciais do seu MySQL no arquivo `.env`.
+4. Configurar as credenciais do MySQL
+Configure as credenciais de acesso ao banco de dados no arquivo ".env".
 
 Valores padrão:
 
 - host: `localhost`
 - porta: `3306`
-- usuário: `SEU_USUARIO_SQL` 👈 Altere este campo para as suas credenciais do MYSQL
-- senha: defina em `SUA_SENHA_SQL` 👈 Altere este campo para as suas credenciais do MYSQL
+- usuário: `SEU_USUARIO_SQL`
+- senha: defina em `SUA_SENHA_SQL`
 - banco: `ecommerce_db`
 
-5. Inicialize o sistema.
+«Substitua os valores de usuário e senha pelas credenciais configuradas em sua instalação do MySQL.»
+
+5. Executar a aplicação
    
-> python app.py
+```
+python app.py
+```
 
-6. Acesse no navegador o seguinte endereço ou copie o endereço disponivel no terminal:
+6. Acessar o sistema
+Após a inicialização, acesse o endereço abaixo no navegador ou utilize a URL exibida no terminal:
    
-> http://localhost:5000
+```
+http://localhost:5000
+```
 
-
-## Acessos de teste
-Ao inicializar o arquivo `app.py`, serão criados por padrão, 2 usuários, sendo eles:
-
+## Credenciais de teste
+Na primeira execução da aplicação, serão criados automaticamente dois usuários para fins de teste.
 
 Administrador:
 - usuário: `admin`
@@ -63,6 +97,14 @@ Administrador:
 Cliente:
 - usuário: `cliente`
 - senha: `cliente123`
+
+## Possíveis Evoluções
+
+- Controle de estoque em tempo real.
+- Dashboard com indicadores gerenciais.
+- Integração com meios de pagamento.
+- Emissão de relatórios em PDF.
+- Sistema de notificações para pedidos.
 
 ## Estrutura
 - app.py - inicia o Flask.
@@ -74,14 +116,3 @@ Cliente:
 - static/css/ - guarda estilos organizados por módulo.
 - static/js/ - guarda animações, validações e segurança da sessão.
 - migrations/ - guarda o código SQL de referência.
-
-## Funcionalidades
-- Login e cadastro de usuários.
-- Sessão por navegador, com timeout por inatividade.
-- Bloqueio simples para evitar duas abas logadas ao mesmo tempo.
-- Listagem, busca e filtro de produtos.
-- Cadastro, edição e exclusão lógica de produtos.
-- Listagem de produtos inativos para reativação pelo administrador.
-- Listagem, cadastro, edição e exclusão de categorias.
-- Carrinho com adicionar, atualizar, remover e finalizar pedido.
-- Histórico em "Meus Pedidos".
