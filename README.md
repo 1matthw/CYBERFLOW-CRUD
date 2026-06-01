@@ -53,15 +53,21 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
+
+
 **2.** Crie o banco de dados
 
 > Crie o banco de dados manualmente utilizando o script SQL disponibilizado no arquivo **"schema.sql"**.
 > 
 > **Importante:** o banco de dados deve ser criado antes da execução da aplicação. Caso contrário, o sistema não será inicializado corretamente.
 
+
+
 **3.** Instalar as dependências
 
 > pip install -r requirements.txt
+
+
 
 **4.** Configurar as credenciais do MySQL
 Configure as credenciais de acesso ao banco de dados no arquivo ".env".
@@ -76,11 +82,15 @@ Valores padrão:
 
 «Substitua os valores de usuário e senha pelas credenciais configuradas em sua instalação do MySQL.»
 
+
+
 **5.** Executar a aplicação
    
 ```
 python app.py
 ```
+
+
 
 **6.** Acessar o sistema
 Após a inicialização, acesse o endereço abaixo no navegador ou utilize a URL exibida no terminal:
