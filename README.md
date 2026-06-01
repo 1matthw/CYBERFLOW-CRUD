@@ -43,7 +43,7 @@ Centralizar o gerenciamento de clientes, produtos, pedidos e usuários em uma ú
 
 ```
 python -m venv .venv
-.\\.venv\Scripts\activate
+.\.venv\Scripts\activate
 ```
 
 LINUX:
