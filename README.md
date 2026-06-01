@@ -81,7 +81,7 @@ Valores padrão:
 - senha: defina em `SUA_SENHA_SQL`
 - banco: `ecommerce_db`
 
-**Substitua os valores de usuário e senha pelas credenciais configuradas em sua instalação do MySQL.**
+Substitua os valores de usuário e senha pelas credenciais configuradas em sua instalação do MySQL.
 
 
 
@@ -94,6 +94,7 @@ python app.py
 
 
 **6.** Acessar o sistema
+
 Após a inicialização, acesse o endereço abaixo no navegador ou utilize a URL exibida no terminal:
    
 ```
@@ -103,13 +104,16 @@ http://localhost:5000
 ## Credenciais de teste
 Na primeira execução da aplicação, serão criados automaticamente dois usuários para fins de teste.
 
+
 **Administrador:**
 - usuário: `admin`
 - senha: `admin123`
 
+
 **Cliente:**
 - usuário: `cliente`
 - senha: `cliente123`
+
 
 ## Possíveis Evoluções
 
