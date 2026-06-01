@@ -63,13 +63,13 @@ source venv/bin/activate
 
 
 
-**3.** Instalar as dependências
+**3.** Instale as dependências
 
 > pip install -r requirements.txt
 
 
 
-**4.** Configurar as credenciais do MySQL
+**4.** Configure as credenciais do MySQL
 Configure as credenciais de acesso ao banco de dados no arquivo ".env".
 
 Valores padrão:
@@ -80,11 +80,11 @@ Valores padrão:
 - senha: defina em `SUA_SENHA_SQL`
 - banco: `ecommerce_db`
 
-«Substitua os valores de usuário e senha pelas credenciais configuradas em sua instalação do MySQL.»
+**Substitua os valores de usuário e senha pelas credenciais configuradas em sua instalação do MySQL.**
 
 
 
-**5.** Executar a aplicação
+**5.** Execute a aplicação
    
 ```
 python app.py
