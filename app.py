@@ -4,7 +4,6 @@ from models import close_db, init_database
 from routes import register_routes
 
 def create_app():
-    # Cria a aplicação Flask e registra as camadas principais do sistema.
     app = Flask(__name__)
     app.config.from_object(Config)
 
