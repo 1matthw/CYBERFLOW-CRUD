@@ -12,10 +12,12 @@ Projeto CYBERFLOW - CRUD acadêmico de um e-commerce com login, cadastro, catál
 
 WINDOWS:
 > python -m venv .venv
+> 
 > .\.venv\Scripts\activate
 
 LINUX:
 > python3 -m venv venv
+> 
 > source venv/bin/activate
 
 
