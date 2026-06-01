@@ -53,8 +53,10 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-**2.** Criar o banco de dados
+**2.** Crie o banco de dados
+
 Crie o banco de dados utilizando o script SQL disponibilizado no arquivo "schema.sql".
+
 «Importante: o banco de dados deve ser criado antes da execução da aplicação. Caso contrário, o sistema não será inicializado corretamente.»
 
 **3.** Instalar as dependências
