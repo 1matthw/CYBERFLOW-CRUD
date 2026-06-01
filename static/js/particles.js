@@ -1,4 +1,4 @@
-// Gerencia o fundo animado, microinterações e efeitos visuais da interface.
+// Gerencia o fundo animado, interações e efeitos visuais.
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 const mouse = { x: null, y: null, radius: 160 };
@@ -10,7 +10,7 @@ function resizeCanvas() {
 }
 
 function initParticles() {
-    // Cria partículas leves para o fundo animado.
+    // Cria partículas leves.
     const total = Math.min(90, Math.floor((canvas.width * canvas.height) / 14000));
     particles = [];
 
@@ -70,7 +70,7 @@ function moverParticle(particle) {
 }
 
 function desenharParticle(particle) {
-    // Desenha a partícula com brilho discreto.
+    // Desenha a partícula.
     const alpha = particle.alpha + Math.sin(particle.pulse) * 0.1;
 
     ctx.beginPath();
@@ -85,7 +85,7 @@ function desenharParticle(particle) {
 }
 
 function desenharLinhas() {
-    // Liga partículas próximas para dar profundidade ao fundo.
+    // Liga partículas próximas.
     for (let i = 0; i < particles.length; i += 1) {
         for (let j = i + 1; j < particles.length; j += 1) {
             const dx = particles[i].x - particles[j].x;
@@ -130,7 +130,7 @@ function changeQty(delta) {
 }
 
 function iniciarAnimacoes() {
-    // Mostra elementos com entrada suave.
+    // Mostra elementos com transição suaves.
     document.querySelectorAll(".stagger, .stagger-scale").forEach(function (el, index) {
         setTimeout(function () {
             el.classList.add("show");
@@ -162,7 +162,7 @@ function iniciarPreviewImagem() {
 }
 
 function iniciarBotoes() {
-    // Cria efeito visual simples nos botões principais.
+    // Cria efeito visual nos botões principais.
     document.querySelectorAll(".btn-modern, .btn-buy, .btn-create").forEach(function (button) {
         button.addEventListener("click", function (event) {
             const rect = button.getBoundingClientRect();
