@@ -1,4 +1,3 @@
-// Coordena validações de formulário antes do envio ao servidor.
 document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".needs-validation").forEach(function (form) {
         form.addEventListener("submit", function (event) {
@@ -16,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function validarFormulario(form) {
-    // Combina validações nativas do navegador com regras específicas do projeto.
     const erros = [];
 
     if (!form.checkValidity()) {
