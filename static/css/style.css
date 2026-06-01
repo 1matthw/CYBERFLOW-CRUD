@@ -1,4 +1,3 @@
-/* Organiza os estilos em arquivos menores e fáceis de revisar. */
 @import url("./base/variables.css");
 @import url("./base/reset.css");
 @import url("./base/animations.css");
