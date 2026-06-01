@@ -57,23 +57,15 @@ Cliente:
 - senha: `cliente123`
 
 ## Estrutura
-app.py - inicia o Flask.
-
-config.py - carrega configurações do MySQL e da sessão.
-
-forms.py - define formulários e validações.
-
-models.py - define tabelas, banco e dados iniciais.
-
-routes.py - concentra rotas e regras do sistema.
-
-templates/ - guarda as páginas HTML.
-
-static/css/ - guarda estilos organizados por módulo.
-
-static/js/ - guarda animações, validações e segurança da sessão.
-
-migrations/ - guarda o código SQL de referência.
+- app.py - inicia o Flask.
+- config.py - carrega configurações do MySQL e da sessão.
+- forms.py - define formulários e validações.
+- models.py - define tabelas, banco e dados iniciais.
+- routes.py - concentra rotas e regras do sistema.
+- templates/ - guarda as páginas HTML.
+- static/css/ - guarda estilos organizados por módulo.
+- static/js/ - guarda animações, validações e segurança da sessão.
+- migrations/ - guarda o código SQL de referência.
 
 ## Funcionalidades
 - Login e cadastro de usuários.
