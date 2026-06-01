@@ -16,7 +16,7 @@ def horario_brasilia():
 
 
 class Base(DeclarativeBase):
-    # Base declarativa compartilhada por todos os modelos do SQLAlchemy.
+    # Base declarativa do SQLAlchemy.
     pass
 
 
