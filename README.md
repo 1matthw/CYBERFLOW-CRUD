@@ -1,13 +1,13 @@
-# CRUD Flask simples
-Projeto CRUD acadêmico de e-commerce com login, cadastro, catálogo, categorias, carrinho e pedidos.
+# CYBERFLOW CRUD
+Projeto CYBERFLOW - CRUD acadêmico de um e-commerce com login, cadastro, catálogo, categorias, carrinho, pedidos, entre outras funcionalidades.
 
-## Tecnologias
+## Tecnologias utilizadas
 - Flask
 - MySQL
 - SQLAlchemy
 - WTForms
 
-## Como inicializar o projeto
+## Como inicializar o projeto corretamente
 1. Crie e ative o ambiente virtual.
 
 WINDOWS:
@@ -18,10 +18,11 @@ LINUX:
 > python3 -m venv venv
 > source venv/bin/activate
 
-2. Crie o banco de dados utilizando o código SQL disponivel no arquivo `schema.sql`
-OBS: Caso o banco de dados não seja criado, o projeto não será inicializado e retornará um erro, então certifique-se de criar o banco antes de executá-lo.
+2. Crie o banco de dados manualmente utilizando o código SQL disponivel no arquivo `schema.sql`
+   
+OBS: Caso o banco de dados não seja criado, o projeto não será inicializado e retornará um erro, certifique-se de criar o banco antes de executá-lo.
 
-3. Instale as dependências.
+4. Instale as dependências necessárias.
 
 > pip install -r requirements.txt
 
@@ -31,19 +32,21 @@ Valores padrão:
 
 - host: `localhost`
 - porta: `3306`
-- usuário: `SEU_USUARIO_SQL`
-- senha: defina em `SUA_SENHA_SQL`
+- usuário: `SEU_USUARIO_SQL` 👈 Altere este campo para as suas credenciais do MYSQL
+- senha: defina em `SUA_SENHA_SQL` 👈 Altere este campo para as suas credenciais do MYSQL
 - banco: `ecommerce_db`
 
-5. Rode o sistema.
+5. Inicialize o sistema.
+   
 > python app.py
 
-6. Acesse no navegador o seguinte endereço:
+6. Acesse no navegador o seguinte endereço ou copie o endereço disponivel no terminal:
+   
 > http://localhost:5000
 
 
 ## Acessos de teste
-Ao inicializar o arquivo `app.py`, serão criados 2 usuários padrão para testes, sendo eles:
+Ao inicializar o arquivo `app.py`, serão criados por padrão, 2 usuários, sendo eles:
 
 Administrador:
 - usuário: `admin`
