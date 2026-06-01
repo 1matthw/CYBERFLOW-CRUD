@@ -1,0 +1,78 @@
+{# Lista usuários e permite alternar contas entre cliente e administrador. #}
+{% extends "base.html" %}
+{% block title %}Usuários - E-commerce{% endblock %}
+
+{% block content %}
+{% include "partials/_header.html" %}
+
+<div class="dashboard-content">
+    <div class="dashboard-title-bar stagger">
+        <h2><i class="bi bi-people title-icon"></i>Usuários</h2>
+        <a href="{{ url_for('listar_produtos') }}" class="btn-edit-outline">
+            <i class="bi bi-arrow-left"></i> Voltar ao catálogo
+        </a>
+    </div>
+
+    {% if usuarios %}
+        <div class="user-list stagger">
+            <div class="user-list-header">
+                <span>Usuário</span>
+                <span>Contato</span>
+                <span>Perfil</span>
+                <span>Ação</span>
+            </div>
+
+            {% for usuario in usuarios %}
+                {% set is_admin = usuario.tipo_cliente and usuario.tipo_cliente.nome == "admin" %}
+                <div class="user-list-row">
+                    <div class="user-list-main">
+                        <div class="user-list-avatar">{{ usuario.usuario[0]|upper }}</div>
+                        <div>
+                            <strong>{{ usuario.usuario }}</strong>
+                            <span>{{ usuario.email or "Sem e-mail cadastrado" }}</span>
+                        </div>
+                    </div>
+
+                    <div class="user-list-contact">
+                        <span><i class="bi bi-telephone"></i> {{ usuario.telefone or "Sem telefone" }}</span>
+                        <span><i class="bi bi-geo-alt"></i> {{ usuario.endereco or "Sem endereço" }}</span>
+                    </div>
+
+                    <div>
+                        <span class="user-role-badge {% if is_admin %}role-admin{% else %}role-user{% endif %}">
+                            {% if is_admin %}
+                                <i class="bi bi-shield-fill-check"></i> Admin
+                            {% else %}
+                                <i class="bi bi-person"></i> Cliente
+                            {% endif %}
+                        </span>
+                    </div>
+
+                    <div class="user-list-action">
+                        {% if is_admin %}
+                            <form method="post" action="{{ url_for('remover_usuario_admin', usuario_id=usuario.id) }}" data-confirm="Remover acesso de administrador deste usuário?" class="inline-form">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn-danger-outline user-action-btn">
+                                    <i class="bi bi-shield-x"></i> Remover admin
+                                </button>
+                            </form>
+                        {% else %}
+                            <form method="post" action="{{ url_for('tornar_usuario_admin', usuario_id=usuario.id) }}" data-confirm="Dar acesso de administrador a este usuário?" class="inline-form">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn-add-cart-sm user-action-btn">
+                                    <i class="bi bi-shield-plus"></i> Tornar admin
+                                </button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state stagger">
+            <i class="bi bi-people"></i>
+            <p>Nenhum usuário cadastrado</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+{# Renderiza o formulário administrativo de criação e edição de produtos. #}
+{% extends "base.html" %}
+{% block title %}{{ titulo }} - E-commerce{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="glass-card-single product-form-card">
+        <div class="form-page-inner">
+            <a href="{{ url_for('listar_produtos') }}" class="back-link stagger">
+                <i class="bi bi-arrow-left"></i> Voltar ao catálogo
+            </a>
+
+            <h2 class="stagger">
+                {% if produto %}
+                    <i class="bi bi-pencil-square form-title-icon"></i>
+                {% else %}
+                    <i class="bi bi-plus-circle form-title-icon"></i>
+                {% endif %}
+                {{ titulo }}
+            </h2>
+
+            <form method="post" class="needs-validation" data-validate="product" novalidate>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="form-row stagger">
+                    <label class="form-label">{{ form.nome.label.text }} *</label>
+                    {{ form.nome(class_="form-control", placeholder="Ex: Notebook Gamer Pro", autofocus=not produto, required=True, maxlength="200") }}
+                    {% for erro in form.nome.errors %}<small class="field-error">{{ erro }}</small>{% endfor %}
+                </div>
+
+                <div class="form-row stagger">
+                    <label class="form-label">{{ form.descricao.label.text }}</label>
+                    {{ form.descricao(class_="form-control", rows="3", placeholder="Descreva as características do produto...", maxlength="5000") }}
+                    {% for erro in form.descricao.errors %}<small class="field-error">{{ erro }}</small>{% endfor %}
+                </div>
+
+                <div class="form-grid-2 stagger">
+                    <div>
+                        <label class="form-label">{{ form.ean.label.text }}</label>
+                        {{ form.ean(class_="form-control", placeholder="Ex: 7891234567890", maxlength="14") }}
+                        {% for erro in form.ean.errors %}<small class="field-error">{{ erro }}</small>{% endfor %}
+                    </div>
+                    <div>
+                        <label class="form-label">{{ form.categoria_id.label.text }}</label>
+                        {{ form.categoria_id(class_="form-control", required=True) }}
+                        {% for erro in form.categoria_id.errors %}<small class="field-error">{{ erro }}</small>{% endfor %}
+                    </div>
+                </div>
+
+                <div class="form-grid-2 stagger">
+                    <div>
+                        <label class="form-label">{{ form.preco.label.text }} (R$) *</label>
+                        {{ form.preco(class_="form-control", step="0.01", min="0", placeholder="0,00", required=True) }}
+                        {% for erro in form.preco.errors %}<small class="field-error">{{ erro }}</small>{% endfor %}
+                    </div>
+                    <div>
+                        <label class="form-label">{{ form.estoque.label.text }} *</label>
+                        {{ form.estoque(class_="form-control", min="0", placeholder="0", required=True) }}
+                        {% for erro in form.estoque.errors %}<small class="field-error">{{ erro }}</small>{% endfor %}
+                    </div>
+                </div>
+
+
+                <div class="form-grid-2 stagger">
+                    <div>
+                        <label class="form-label">{{ form.data_producao.label.text }}</label>
+                        {{ form.data_producao(class_="form-control") }}
+                    </div>
+                    <div>
+                        <label class="form-label">{{ form.data_validade.label.text }}</label>
+                        {{ form.data_validade(class_="form-control") }}
+                    </div>
+                </div>
+
+                <div class="form-row stagger">
+                    <label class="form-label">{{ form.imagem.label.text }}</label>
+                    {{ form.imagem(class_="form-control", placeholder="https://exemplo.com/imagem.jpg", maxlength="255") }}
+                    {% for erro in form.imagem.errors %}<small class="field-error">{{ erro }}</small>{% endfor %}
+                </div>
+
+                <div id="img-preview" class="img-preview-box {% if not form.imagem.data %}hidden{% endif %}">
+                    {% if form.imagem.data %}
+                        <img src="{{ form.imagem.data }}" alt="Preview">
+                    {% endif %}
+                </div>
+
+                <label class="modern-checkbox stagger">
+                    {{ form.ativo }}
+                    <span>{{ form.ativo.label.text }}</span>
+                </label>
+
+                <button type="submit" class="btn-modern stagger">
+                    <i class="bi bi-check-lg"></i> Salvar
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

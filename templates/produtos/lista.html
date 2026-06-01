@@ -1,0 +1,175 @@
+{# Lista produtos ativos ou inativos com busca, filtros e ações administrativas. #}
+{% extends "base.html" %}
+{% block title %}Produtos - E-commerce{% endblock %}
+
+{% block content %}
+{% include "partials/_header.html" %}
+
+<div class="dashboard-content">
+    <div class="stats-row stagger">
+        <div class="stat-card">
+            <div class="stat-icon purple"><i class="bi bi-box-seam"></i></div>
+            <div>
+                <div class="stat-value" data-count="{{ stats.total or 0 }}">0</div>
+                <div class="stat-label">Produtos</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon green"><i class="bi bi-check-circle"></i></div>
+            <div>
+                <div class="stat-value" data-count="{{ stats.em_estoque or 0 }}">0</div>
+                <div class="stat-label">Em estoque</div>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon amber"><i class="bi bi-currency-dollar"></i></div>
+            <div>
+                <div class="stat-value">{{ stats.valor_total|brl }}</div>
+                <div class="stat-label">Valor total</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-title-bar stagger">
+        <h2>{{ "Produtos inativos" if modo_inativos else "Catálogo" }}</h2>
+        <div class="title-bar-actions">
+            <form method="get" action="{{ url_for('listar_produtos_inativos' if modo_inativos else 'listar_produtos') }}" class="search-filter-form">
+                <div class="search-box">
+                    <i class="bi bi-search search-icon"></i>
+                    <input type="text" name="q" id="search-input" placeholder="Buscar produto ou EAN..." autocomplete="off" value="{{ search or '' }}">
+                </div>
+                <select name="categoria" class="filter-select" onchange="this.form.submit()">
+                    <option value="">Todas as categorias</option>
+                    {% for categoria in categorias %}
+                        <option value="{{ categoria.id }}" {% if categoria_filtro|string == categoria.id|string %}selected{% endif %}>{{ categoria.nome }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+
+            {% if session.get("tipo") == "admin" %}
+                {% if modo_inativos %}
+                    <a href="{{ url_for('listar_produtos') }}" class="btn-edit-outline title-secondary-action">
+                        <i class="bi bi-arrow-left"></i> Catálogo
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('listar_produtos_inativos') }}" class="btn-edit-outline title-secondary-action">
+                        <i class="bi bi-archive"></i> Produtos inativos{% if total_inativos %} ({{ total_inativos }}){% endif %}
+                    </a>
+                {% endif %}
+                <a href="{{ url_for('criar_produto') }}" class="btn-create">
+                    <i class="bi bi-plus-lg"></i> Novo produto
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if produtos %}
+        <div class="products-grid">
+            {% for produto in produtos %}
+                {% set produto_link = url_for('detalhar_produto', produto_id=produto.id) if produto.ativo else url_for('editar_produto', produto_id=produto.id) %}
+                <div class="ecommerce-card stagger">
+                    <a href="{{ produto_link }}">
+                        <div class="card-img-wrapper">
+                            <img src="{{ produto.imagem or 'https://placehold.co/400x300/1a1a2e/a78bfa?text=Sem+Imagem' }}" alt="{{ produto.nome }}" class="product-img" loading="lazy">
+
+                            {% if not produto.ativo %}
+                                <span class="card-badge badge-inactive">Inativo</span>
+                            {% elif produto.estoque > 5 %}
+                                <span class="card-badge badge-stock">Em estoque</span>
+                            {% elif produto.estoque > 0 %}
+                                <span class="card-badge badge-low">Últimas {{ produto.estoque }} un.</span>
+                            {% else %}
+                                <span class="card-badge badge-out">Esgotado</span>
+                            {% endif %}
+
+                            <div class="card-overlay"><span class="overlay-btn"><i class="bi bi-eye-fill"></i></span></div>
+                        </div>
+                    </a>
+
+                    <div class="card-body">
+                        <a href="{{ produto_link }}" class="card-title-link">
+                            <div class="produto-titulo">{{ produto.nome }}</div>
+                        </a>
+
+                        {% if produto.categoria %}
+                            <span class="produto-categoria"><i class="bi bi-tag"></i> {{ produto.categoria.nome }}</span>
+                        {% endif %}
+
+                        {% if produto.descricao %}
+                            <div class="produto-desc-short">{{ produto.descricao }}</div>
+                        {% endif %}
+                        {% if produto.ean %}
+                            <div class="produto-desc-short"><i class="bi bi-upc-scan"></i> EAN: {{ produto.ean }}</div>
+                        {% endif %}
+
+                        <div class="produto-preco">{{ produto.preco|brl }}</div>
+
+                        <div class="card-actions">
+                            {% if not produto.ativo %}
+                                {% if session.get("tipo") == "admin" %}
+                                    <form method="post" action="{{ url_for('ativar_produto', produto_id=produto.id) }}" class="cart-form">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button type="submit" class="btn-add-cart-sm">
+                                            <i class="bi bi-toggle-on"></i> Ativar
+                                        </button>
+                                    </form>
+                                {% endif %}
+                            {% elif produto.estoque > 0 %}
+                                {% if session.get("usuario_id") %}
+                                    <form method="post" action="{{ url_for('adicionar_carrinho') }}" class="cart-form">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <input type="hidden" name="produto_id" value="{{ produto.id }}">
+                                        <input type="hidden" name="quantidade" value="1">
+                                        <button type="submit" class="btn-add-cart-sm">
+                                            <i class="bi bi-cart-plus"></i> Comprar
+                                        </button>
+                                    </form>
+                                {% else %}
+                                    <a href="{{ url_for('login', next=request.path) }}" class="btn-add-cart-sm">
+                                        <i class="bi bi-cart-plus"></i> Comprar
+                                    </a>
+                                {% endif %}
+                            {% else %}
+                                <a href="{{ url_for('detalhar_produto', produto_id=produto.id) }}" class="btn-add-cart-sm">
+                                    <i class="bi bi-eye"></i> Ver
+                                </a>
+                            {% endif %}
+                            {% if session.get("tipo") == "admin" %}
+                                <a href="{{ url_for('editar_produto', produto_id=produto.id) }}" class="btn-edit-outline" title="Editar">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </a>
+                                <form method="post" action="{{ url_for('excluir_produto', produto_id=produto.id) }}" data-confirm="Excluir este produto? Esta ação remove o registro do banco de dados." class="inline-form">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="btn-danger-outline" title="Excluir">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state stagger">
+            <i class="bi bi-box-seam"></i>
+            <p>{{ "Nenhum produto inativo encontrado" if modo_inativos else "Nenhum produto encontrado" }}</p>
+            {% if search or categoria_filtro %}
+                <a href="{{ url_for('listar_produtos_inativos' if modo_inativos else 'listar_produtos') }}" class="btn-edit-outline empty-action">
+                    <i class="bi bi-x-lg"></i> Limpar filtros
+                </a>
+            {% elif modo_inativos %}
+                <a href="{{ url_for('listar_produtos') }}" class="btn-create empty-action">
+                    <i class="bi bi-arrow-left"></i> Voltar ao catálogo
+                </a>
+            {% else %}
+                {% if session.get("tipo") == "admin" %}
+                    <a href="{{ url_for('criar_produto') }}" class="btn-create empty-action">
+                        <i class="bi bi-plus-lg"></i> Criar primeiro produto
+                    </a>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

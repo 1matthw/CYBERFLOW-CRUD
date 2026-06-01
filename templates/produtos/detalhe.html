@@ -1,0 +1,109 @@
+{# Exibe detalhes do produto e ações de compra ou administração. #}
+{% extends "base.html" %}
+{% block title %}{{ produto.nome }} - E-commerce{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="product-detail-card">
+        <div class="detail-img">
+            <img src="{{ produto.imagem or 'https://placehold.co/500x400/1a1a2e/a78bfa?text=Sem+Imagem' }}" alt="{{ produto.nome }}">
+            {% if produto.estoque > 0 %}
+                <span class="img-badge"><i class="bi bi-check-circle-fill"></i> Disponível</span>
+            {% else %}
+                <span class="img-badge img-badge-danger"><i class="bi bi-x-circle-fill"></i> Esgotado</span>
+            {% endif %}
+        </div>
+
+        <div class="detail-info">
+            <div>
+                <a href="{{ url_for('listar_produtos') }}" class="back-link stagger">
+                    <i class="bi bi-arrow-left"></i> Voltar ao catálogo
+                </a>
+
+                <h1 class="stagger">{{ produto.nome }}</h1>
+
+                {% if produto.categoria %}
+                    <span class="produto-categoria stagger"><i class="bi bi-tag"></i> {{ produto.categoria.nome }}</span>
+                {% endif %}
+
+                {% if produto.descricao %}
+                    <p class="description stagger">{{ produto.descricao }}</p>
+                {% endif %}
+
+                <div class="price stagger">{{ produto.preco|brl }}</div>
+                <p class="price-installment stagger">
+                    ou <strong>3x de {{ (produto.preco / 3)|brl }} sem juros</strong>
+                </p>
+
+                <div class="meta-info">
+                    <div class="meta-item stagger">
+                        <i class="bi bi-box-seam"></i> Estoque: <strong>{{ produto.estoque }} unidades</strong>
+                    </div>
+                    {% if produto.ean %}
+                        <div class="meta-item stagger">
+                            <i class="bi bi-upc-scan"></i> EAN: <strong>{{ produto.ean }}</strong>
+                        </div>
+                    {% endif %}
+                    {% if produto.data_producao %}
+                        <div class="meta-item stagger">
+                            <i class="bi bi-calendar-check"></i> Data de produção: <strong>{{ produto.data_producao.strftime("%d/%m/%Y") }}</strong>
+                        </div>
+                    {% endif %}
+                    {% if produto.data_validade %}
+                        <div class="meta-item stagger">
+                            <i class="bi bi-calendar-x"></i> Data de validade: <strong>{{ produto.data_validade.strftime("%d/%m/%Y") }}</strong>
+                        </div>
+                    {% endif %}
+                    <div class="meta-item stagger">
+                        <i class="bi bi-toggle-on"></i> Status: <strong>{{ "Ativo" if produto.ativo else "Inativo" }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-actions">
+                {% if produto.estoque > 0 %}
+                    {% if session.get("usuario_id") %}
+                        <form method="post" action="{{ url_for('adicionar_carrinho') }}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="produto_id" value="{{ produto.id }}">
+                            <div class="quantity-row stagger">
+                                <span>Quantidade:</span>
+                                <div class="qty-selector">
+                                    <button type="button" onclick="changeQty(-1)">-</button>
+                                    <input type="number" id="qty-input" name="quantidade" value="1" min="1" max="{{ produto.estoque }}" readonly>
+                                    <button type="button" onclick="changeQty(1)">+</button>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-buy stagger">
+                                <i class="bi bi-cart-plus-fill"></i> Adicionar ao Carrinho
+                            </button>
+                        </form>
+                    {% else %}
+                        <a href="{{ url_for('login', next=request.path) }}" class="btn-buy stagger">
+                            <i class="bi bi-cart-plus-fill"></i> Entrar para Comprar
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <button class="btn-buy btn-disabled stagger" disabled>
+                        <i class="bi bi-cart-plus-fill"></i> Produto Esgotado
+                    </button>
+                {% endif %}
+
+                {% if session.get("tipo") == "admin" %}
+                    <div class="detail-admin-actions stagger">
+                        <a href="{{ url_for('editar_produto', produto_id=produto.id) }}" class="btn-edit-outline">
+                            <i class="bi bi-pencil-fill"></i> Editar
+                        </a>
+                        <form method="post" action="{{ url_for('excluir_produto', produto_id=produto.id) }}" data-confirm="Excluir este produto? Esta ação remove o registro do banco de dados.">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button type="submit" class="btn-danger-outline">
+                                <i class="bi bi-trash3-fill"></i> Excluir
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

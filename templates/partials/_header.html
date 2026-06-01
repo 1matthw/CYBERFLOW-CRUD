@@ -1,0 +1,55 @@
+{# Monta o cabeçalho compartilhado das áreas internas do site. #}
+<header class="dashboard-header">
+    <a href="{{ url_for('listar_produtos') }}" class="logo">
+        <i class="bi bi-box-seam-fill"></i>
+        <span>E-commerce</span>
+    </a>
+
+    <div class="header-right">
+        <a href="{{ url_for('listar_produtos') }}" class="btn-orders-header {% if request.endpoint == 'listar_produtos' %}active{% endif %}" title="Produtos">
+            <i class="bi bi-grid-3x3-gap"></i>
+        </a>
+
+        <a href="{{ url_for('listar_categorias_view') }}" class="btn-orders-header {% if request.endpoint == 'listar_categorias_view' %}active{% endif %}" title="Categorias">
+            <i class="bi bi-tags"></i>
+        </a>
+
+        {% if session.get("usuario_id") %}
+            <a href="{{ url_for('ver_carrinho') }}" class="btn-cart-header {% if request.endpoint == 'ver_carrinho' %}active{% endif %}" title="Meu carrinho">
+                <i class="bi bi-cart3"></i>
+                {% if cart_count > 0 %}<span class="cart-badge">{{ cart_count }}</span>{% endif %}
+            </a>
+
+            <a href="{{ url_for('meus_pedidos') }}" class="btn-orders-header {% if request.endpoint == 'meus_pedidos' %}active{% endif %}" title="Meus pedidos">
+                <i class="bi bi-bag-check"></i>
+            </a>
+
+            {% if session.get("tipo") == "admin" %}
+                <a href="{{ url_for('listar_usuarios') }}" class="btn-orders-header {% if request.endpoint == 'listar_usuarios' %}active{% endif %}" title="Usuários">
+                    <i class="bi bi-people"></i>
+                </a>
+
+                <a href="{{ url_for('criar_produto') }}" class="btn-cart-header {% if request.endpoint == 'criar_produto' %}active{% endif %}" title="Novo produto">
+                    <i class="bi bi-plus-lg"></i>
+                </a>
+            {% endif %}
+
+            <div class="user-info">
+                <span>Olá, <strong>{{ session.get("usuario") }}</strong>
+                    {% if session.get("tipo") == "admin" %}
+                        <i class="bi bi-shield-fill-check admin-icon" title="Admin"></i>
+                    {% endif %}
+                </span>
+                <div class="user-avatar">{{ session.get("usuario", "U")[0]|upper }}</div>
+            </div>
+
+            <a href="{{ url_for('logout') }}" class="btn-logout" title="Sair da conta">
+                <i class="bi bi-box-arrow-right"></i> Sair
+            </a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="btn-logout" title="Entrar">
+                <i class="bi bi-box-arrow-in-right"></i> Entrar
+            </a>
+        {% endif %}
+    </div>
+</header>

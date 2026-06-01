@@ -1,0 +1,139 @@
+/* Estiliza formulários, campos e validações. */
+.form-label {
+    display: block;
+    margin-bottom: var(--space-2);
+    color: var(--color-text-body);
+    font-size: 0.84rem;
+    font-weight: 700;
+}
+
+.form-control {
+    width: 100%;
+    height: 48px;
+    padding: 12px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text);
+    background: white;
+    outline: none;
+    transition: border var(--transition), box-shadow var(--transition), background var(--transition);
+}
+
+.form-control:hover {
+    background: var(--color-surface-soft);
+}
+
+.form-control:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.14);
+    background: white;
+}
+
+textarea.form-control {
+    min-height: 96px;
+    line-height: 1.5;
+}
+
+.input-icon,
+.password-container {
+    position: relative;
+    margin-bottom: var(--space-5);
+}
+
+.input-icon > i,
+.password-container .icon-left {
+    position: absolute;
+    top: 24px;
+    left: 15px;
+    color: var(--color-text-muted);
+    display: grid;
+    place-items: center;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+.input-icon .form-control,
+.password-container .form-control {
+    padding-left: 44px;
+}
+
+.password-container .form-control {
+    padding-right: 54px;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 24px;
+    right: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    border-radius: var(--radius-xs);
+    color: var(--color-text-muted);
+    background: transparent;
+    transform: translateY(-50%);
+}
+
+.toggle-password:hover {
+    color: var(--color-primary);
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.toggle-password i {
+    display: block;
+    position: static;
+    width: 16px;
+    height: 16px;
+    font-size: 1rem;
+    line-height: 1;
+    transform: none;
+    pointer-events: none;
+}
+
+.form-row {
+    margin-bottom: var(--space-5);
+}
+
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+}
+
+.field-error {
+    display: block;
+    margin-top: var(--space-2);
+    color: var(--color-danger);
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.modern-checkbox {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-5);
+    color: var(--color-text-body);
+    font-weight: 700;
+}
+
+.modern-checkbox input {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-primary);
+}
+
+.was-validated .form-control:invalid {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.14);
+}
+
+.was-validated .form-control:valid {
+    border-color: rgba(16, 185, 129, 0.55);
+}

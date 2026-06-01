@@ -1,0 +1,31 @@
+/* Exibe mensagens de sucesso, erro e informação no topo da tela. */
+.flash-banner {
+    position: fixed;
+    top: 22px;
+    left: 50%;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    max-width: calc(100% - 28px);
+    padding: 13px 22px;
+    border-radius: var(--radius-full);
+    color: white;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    box-shadow: var(--shadow-md);
+    font-size: 0.9rem;
+    font-weight: 700;
+    animation: flashSlideIn 0.35s ease forwards;
+}
+
+.flash-success {
+    background: linear-gradient(135deg, var(--color-success), #059669);
+}
+
+.flash-error {
+    background: linear-gradient(135deg, var(--color-danger), #b91c1c);
+}
+
+.flash-info {
+    background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+}

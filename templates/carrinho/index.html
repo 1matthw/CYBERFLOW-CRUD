@@ -1,0 +1,99 @@
+{# Renderiza os itens do carrinho, totais e finalização do pedido. #}
+{% extends "base.html" %}
+{% block title %}Carrinho - E-commerce{% endblock %}
+
+{% block content %}
+{% include "partials/_header.html" %}
+
+<div class="dashboard-content">
+    <div class="dashboard-title-bar stagger">
+        <h2><i class="bi bi-cart3 title-icon"></i>Meu Carrinho</h2>
+        <a href="{{ url_for('listar_produtos') }}" class="btn-edit-outline">
+            <i class="bi bi-arrow-left"></i> Continuar comprando
+        </a>
+    </div>
+
+    {% if itens %}
+        <div class="cart-layout">
+            <div class="cart-items">
+                {% for item in itens %}
+                    <div class="cart-item stagger">
+                        <div class="cart-item-img">
+                            <img src="{{ item.produto.imagem or 'https://placehold.co/80x80/1a1a2e/a78bfa?text=?' }}" alt="{{ item.produto.nome }}">
+                        </div>
+
+                        <div class="cart-item-info">
+                            <a href="{{ url_for('detalhar_produto', produto_id=item.produto_id) }}" class="cart-item-name">
+                                {{ item.produto.nome }}
+                            </a>
+                            <div class="cart-item-price-unit">
+                                {{ item.preco_unitario|brl }} /un.
+                            </div>
+                        </div>
+
+                        <div class="cart-item-qty">
+                            <form method="post" action="{{ url_for('atualizar_carrinho') }}" class="qty-form">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <input type="hidden" name="item_id" value="{{ item.id }}">
+                                <div class="qty-selector">
+                                    <button type="submit" name="quantidade" value="{{ item.quantidade - 1 }}">-</button>
+                                    <span class="qty-display">{{ item.quantidade }}</span>
+                                    <button type="submit" name="quantidade" value="{{ item.quantidade + 1 }}" {% if item.quantidade >= item.produto.estoque %}disabled{% endif %}>+</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="cart-item-subtotal">
+                            {{ item.subtotal|brl }}
+                        </div>
+
+                        <form method="post" action="{{ url_for('remover_carrinho') }}">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="item_id" value="{{ item.id }}">
+                            <button type="submit" class="cart-item-remove" title="Remover">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </form>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="cart-summary stagger">
+                <h3>Resumo do Pedido</h3>
+                <div class="summary-row">
+                    <span>Subtotal ({{ itens|length }} {{ "item" if itens|length == 1 else "itens" }})</span>
+                    <span>{{ total|brl }}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Frete</span><span class="text-success">Grátis</span>
+                </div>
+                <div class="summary-divider"></div>
+                <div class="summary-row summary-total">
+                    <span>Total</span>
+                    <span>{{ total|brl }}</span>
+                </div>
+
+                <form method="post" action="{{ url_for('finalizar_carrinho') }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <textarea name="observacoes" class="form-control order-note" placeholder="Observações (opcional)" rows="2"></textarea>
+                    <button type="submit" class="btn-buy w-full">
+                        <i class="bi bi-bag-check-fill"></i> Finalizar Pedido
+                    </button>
+                </form>
+
+                <p class="summary-secure">
+                    <i class="bi bi-shield-check"></i> Compra segura
+                </p>
+            </div>
+        </div>
+    {% else %}
+        <div class="empty-state stagger">
+            <i class="bi bi-cart-x"></i>
+            <p>Seu carrinho está vazio</p>
+            <a href="{{ url_for('listar_produtos') }}" class="btn-create empty-action">
+                <i class="bi bi-bag-plus"></i> Explorar produtos
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

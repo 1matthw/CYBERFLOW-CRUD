@@ -1,0 +1,49 @@
+{# Renderiza a tela de login com validação visual e link para cadastro. #}
+{% extends "base.html" %}
+{% block title %}Login - E-commerce{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="glass-card">
+        <div class="left-side">
+            <i class="bi bi-stars icon-large"></i>
+            <h2>Bem-vindo<br>de volta</h2>
+            <p>Entre para acessar sua conta e explorar nossos produtos</p>
+            <div class="left-dots"><span></span><span></span><span></span></div>
+        </div>
+
+        <div class="right-side">
+            <h2 class="stagger">Entrar</h2>
+            <p class="subtitle stagger">Insira suas credenciais para continuar</p>
+
+            <form method="post" action="{{ url_for('login') }}" autocomplete="on" class="needs-validation" data-validate="login" novalidate>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="next" value="{{ next_url }}">
+                <div class="input-icon stagger">
+                    <i class="bi bi-person-fill"></i>
+                    {{ form.usuario(class_="form-control", placeholder="Seu usuário", autocomplete="username", autofocus=True, required=True, maxlength="80") }}
+                    {% for erro in form.usuario.errors %}<small class="field-error">{{ erro }}</small>{% endfor %}
+                </div>
+
+                <div class="input-icon password-container stagger">
+                    <i class="bi bi-lock-fill icon-left"></i>
+                    {{ form.senha(id="login-senha", class_="form-control", placeholder="Sua senha", autocomplete="current-password", required=True) }}
+                    <button type="button" class="toggle-password" onclick="togglePassword('login-senha', this.querySelector('i'))">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    {% for erro in form.senha.errors %}<small class="field-error">{{ erro }}</small>{% endfor %}
+                </div>
+
+                <button type="submit" class="btn-modern stagger">
+                    <i class="bi bi-box-arrow-in-right"></i> Entrar
+                </button>
+            </form>
+
+            <div class="auth-divider stagger">ou</div>
+            <div class="auth-link stagger">
+                Não tem conta? <a href="{{ url_for('register') }}">Cadastrar-se</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

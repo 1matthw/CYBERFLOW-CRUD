@@ -1,0 +1,17 @@
+{# Mostra uma resposta amigável para rotas ou registros inexistentes. #}
+{% extends "base.html" %}
+{% block title %}Página não encontrada - E-commerce{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="glass-card-single">
+        <div class="form-page-inner">
+            <h2 class="stagger"><i class="bi bi-exclamation-circle form-title-icon"></i>Página não encontrada</h2>
+            <p class="stagger muted-text">O registro ou endereço solicitado não existe.</p>
+            <a href="{{ url_for('listar_produtos') }}" class="btn-modern stagger">
+                <i class="bi bi-arrow-left"></i> Ir para produtos
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

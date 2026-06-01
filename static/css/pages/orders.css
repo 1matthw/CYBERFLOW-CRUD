@@ -1,0 +1,119 @@
+/* Estiliza a listagem de pedidos do cliente. */
+.orders-list {
+    display: grid;
+    gap: var(--space-4);
+}
+
+.order-card {
+    overflow: hidden;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius-md);
+    background: var(--color-panel);
+}
+
+.order-header,
+.order-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-5);
+}
+
+.order-header {
+    border-bottom: 1px solid var(--color-panel-border);
+}
+
+.order-id {
+    margin-right: var(--space-3);
+    color: white;
+    font-weight: 900;
+}
+
+.order-date,
+.order-item-detail,
+.order-total {
+    color: var(--color-text-light);
+    font-size: 0.84rem;
+}
+
+.order-status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    font-size: 0.76rem;
+    font-weight: 900;
+}
+
+.status-pendente {
+    color: #fbbf24;
+    background: rgba(245, 158, 11, 0.18);
+}
+
+.status-confirmado,
+.status-enviado {
+    color: var(--color-accent);
+    background: rgba(99, 102, 241, 0.18);
+}
+
+.status-entregue {
+    color: var(--color-success);
+    background: rgba(16, 185, 129, 0.18);
+}
+
+.status-cancelado {
+    color: #fca5a5;
+    background: rgba(239, 68, 68, 0.2);
+}
+
+.order-items {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-5);
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.order-item-img {
+    width: 52px;
+    height: 52px;
+    flex: 0 0 auto;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+}
+
+.order-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.order-item-name {
+    display: block;
+    color: white;
+    font-weight: 800;
+}
+
+.order-item-subtotal,
+.order-total strong {
+    color: var(--color-accent);
+    font-weight: 900;
+}
+
+.order-obs {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0 var(--space-5) var(--space-4);
+    color: var(--color-text-light);
+    font-size: 0.86rem;
+}
+
+.order-footer {
+    border-top: 1px solid var(--color-panel-border);
+}

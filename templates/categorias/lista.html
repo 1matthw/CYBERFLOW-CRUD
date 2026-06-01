@@ -1,0 +1,66 @@
+{# Lista categorias e seus atalhos para produtos relacionados. #}
+{% extends "base.html" %}
+{% block title %}Categorias - E-commerce{% endblock %}
+
+{% block content %}
+{% include "partials/_header.html" %}
+
+<div class="dashboard-content">
+    <div class="dashboard-title-bar stagger">
+        <h2>Categorias</h2>
+        {% if session.get("tipo") == "admin" %}
+            <div class="title-bar-actions">
+                <a href="{{ url_for('criar_categoria') }}" class="btn-create btn-category-create">
+                    <i class="bi bi-plus-circle"></i> Criar categoria
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if categorias %}
+        <div class="simple-grid">
+            {% for categoria in categorias %}
+                {% set total_produtos = categoria.produtos|selectattr("ativo")|list|length %}
+                <div class="ecommerce-card category-card stagger">
+                    <div class="card-body">
+                        <span class="produto-categoria"><i class="bi bi-tag"></i> Categoria</span>
+                        <a href="{{ url_for('listar_produtos', categoria=categoria.id) }}" class="card-title-link">
+                            <div class="produto-titulo">{{ categoria.nome }}</div>
+                        </a>
+                        <div class="produto-desc-short">
+                            {{ total_produtos }} produto{{ "s" if total_produtos != 1 else "" }} cadastrado{{ "s" if total_produtos != 1 else "" }}.
+                        </div>
+
+                        <div class="card-actions">
+                            <a href="{{ url_for('listar_produtos', categoria=categoria.id) }}" class="btn-add-cart-sm btn-category-products">
+                                <i class="bi bi-eye"></i> Ver produtos
+                            </a>
+                            {% if session.get("tipo") == "admin" %}
+                                <a href="{{ url_for('editar_categoria', categoria_id=categoria.id) }}" class="btn-edit-outline" title="Editar categoria">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </a>
+                                <form method="post" action="{{ url_for('excluir_categoria', categoria_id=categoria.id) }}" data-confirm="Excluir esta categoria?" class="inline-form">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="btn-danger-outline" title="Excluir">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state stagger">
+            <i class="bi bi-tags"></i>
+            <p>Nenhuma categoria encontrada</p>
+            {% if session.get("tipo") == "admin" %}
+                <a href="{{ url_for('criar_categoria') }}" class="btn-create empty-action">
+                    <i class="bi bi-plus-lg"></i> Criar primeira categoria
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

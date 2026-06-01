@@ -1,0 +1,161 @@
+/* Define cards usados nas listas do catálogo e categorias. */
+.ecommerce-card {
+    overflow: hidden;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition), border var(--transition), background var(--transition);
+}
+
+.ecommerce-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.card-img-wrapper {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+    background: #1a1738;
+}
+
+.product-img,
+.card-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+}
+
+.ecommerce-card:hover .product-img {
+    transform: scale(1.04);
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    min-height: 240px;
+    padding: var(--space-5);
+}
+
+.category-card .card-body {
+    min-height: 210px;
+}
+
+.category-card .card-actions {
+    align-items: stretch;
+}
+
+.card-title-link {
+    color: inherit;
+}
+
+.produto-titulo {
+    color: white;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.produto-categoria {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    width: fit-content;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    color: var(--color-accent);
+    background: rgba(99, 102, 241, 0.16);
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.produto-desc-short {
+    color: var(--color-text-light);
+    font-size: 0.86rem;
+}
+
+.produto-preco {
+    margin-top: auto;
+    color: var(--color-accent);
+    font-size: 1.2rem;
+    font-weight: 900;
+}
+
+.card-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-top: var(--space-2);
+}
+
+.cart-form {
+    flex: 1;
+}
+
+.inline-form {
+    display: inline-flex;
+}
+
+.card-badge,
+.img-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    border-radius: var(--radius-full);
+    font-size: 0.76rem;
+    font-weight: 800;
+}
+
+.card-badge {
+    position: absolute;
+    top: var(--space-3);
+    left: var(--space-3);
+    padding: 5px 10px;
+}
+
+.badge-stock {
+    color: white;
+    background: rgba(16, 185, 129, 0.9);
+}
+
+.badge-low {
+    color: white;
+    background: rgba(245, 158, 11, 0.92);
+}
+
+.badge-out {
+    color: white;
+    background: rgba(239, 68, 68, 0.9);
+}
+
+.badge-inactive {
+    color: white;
+    background: rgba(100, 116, 139, 0.92);
+}
+
+.card-overlay {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    background: rgba(15, 23, 42, 0.42);
+    transition: opacity var(--transition);
+}
+
+.ecommerce-card:hover .card-overlay {
+    opacity: 1;
+}
+
+.overlay-btn {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    color: white;
+    background: var(--color-primary);
+}

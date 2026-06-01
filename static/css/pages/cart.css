@@ -1,0 +1,134 @@
+/* Estiliza carrinho e resumo do pedido. */
+.cart-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: var(--space-6);
+    align-items: start;
+}
+
+.cart-items {
+    display: grid;
+    gap: var(--space-3);
+}
+
+.cart-item,
+.cart-summary {
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius-md);
+    background: var(--color-panel);
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    padding: var(--space-5);
+}
+
+.cart-item-img {
+    width: 80px;
+    height: 80px;
+    flex: 0 0 auto;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background: #1a1738;
+}
+
+.cart-item-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cart-item-info {
+    flex: 1;
+    min-width: 160px;
+}
+
+.cart-item-name {
+    display: block;
+    margin-bottom: var(--space-1);
+    color: white;
+    font-weight: 800;
+}
+
+.cart-item-price-unit,
+.summary-row,
+.summary-secure {
+    color: var(--color-text-light);
+    font-size: 0.88rem;
+}
+
+.cart-item-subtotal {
+    min-width: 100px;
+    color: var(--color-accent);
+    font-weight: 900;
+    text-align: right;
+}
+
+.cart-item-remove {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-light);
+    background: transparent;
+}
+
+.cart-item-remove:hover {
+    color: white;
+    background: rgba(239, 68, 68, 0.2);
+}
+
+.cart-summary {
+    position: sticky;
+    top: 96px;
+    padding: var(--space-6);
+}
+
+.cart-summary h3 {
+    margin-bottom: var(--space-5);
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-2) 0;
+}
+
+.text-success {
+    color: var(--color-success);
+    font-weight: 800;
+}
+
+.summary-divider {
+    height: 1px;
+    margin: var(--space-3) 0;
+    background: var(--color-panel-border);
+}
+
+.summary-total {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 900;
+}
+
+.order-note {
+    min-height: 82px;
+    margin-bottom: var(--space-4);
+    font-size: 0.86rem;
+}
+
+.summary-secure {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+}

@@ -1,0 +1,75 @@
+{# Lista o histórico de pedidos feitos pelo cliente autenticado. #}
+{% extends "base.html" %}
+{% block title %}Meus Pedidos - E-commerce{% endblock %}
+
+{% block content %}
+{% include "partials/_header.html" %}
+
+<div class="dashboard-content">
+    <div class="dashboard-title-bar stagger">
+        <h2><i class="bi bi-bag-check title-icon"></i>Meus Pedidos</h2>
+        <a href="{{ url_for('listar_produtos') }}" class="btn-edit-outline">
+            <i class="bi bi-arrow-left"></i> Voltar ao catalogo
+        </a>
+    </div>
+
+    {% if pedidos %}
+        <div class="orders-list">
+            {% for pedido in pedidos %}
+                <div class="order-card stagger">
+                    <div class="order-header">
+                        <div>
+                            <span class="order-id">Pedido #{{ pedido.id }}</span>
+                            <span class="order-date">{{ pedido.criado_em.strftime("%d/%m/%Y %H:%M") if pedido.criado_em else "" }}</span>
+                        </div>
+                        <span class="order-status status-{{ pedido.status }}">
+                            {% if pedido.status == "pendente" %}<i class="bi bi-clock"></i> Pendente
+                            {% elif pedido.status == "confirmado" %}<i class="bi bi-check-circle"></i> Confirmado
+                            {% elif pedido.status == "enviado" %}<i class="bi bi-truck"></i> Enviado
+                            {% elif pedido.status == "entregue" %}<i class="bi bi-check-all"></i> Entregue
+                            {% elif pedido.status == "cancelado" %}<i class="bi bi-x-circle"></i> Cancelado
+                            {% else %}<i class="bi bi-info-circle"></i> {{ pedido.status|title }}
+                            {% endif %}
+                        </span>
+                    </div>
+
+                    <div class="order-items">
+                        {% for item in pedido.itens %}
+                            <div class="order-item">
+                                <img src="{{ item.produto.imagem or 'https://placehold.co/60x60/1a1a2e/a78bfa?text=?' }}" alt="{{ item.produto.nome }}" class="order-item-img">
+                                <div class="order-item-info">
+                                    <span class="order-item-name">{{ item.produto.nome }}</span>
+                                    <span class="order-item-detail">{{ item.quantidade }}x {{ item.preco_unitario|brl }}</span>
+                                </div>
+                                <span class="order-item-subtotal">
+                                    {{ item.subtotal|brl }}
+                                </span>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    {% if pedido.observacoes %}
+                        <div class="order-obs">
+                            <i class="bi bi-chat-text"></i> {{ pedido.observacoes }}
+                        </div>
+                    {% endif %}
+
+                    <div class="order-footer">
+                        <span class="order-total">
+                            Total: <strong>{{ pedido.total|brl }}</strong>
+                        </span>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state stagger">
+            <i class="bi bi-bag-x"></i>
+            <p>Você ainda não fez nenhum pedido</p>
+            <a href="{{ url_for('listar_produtos') }}" class="btn-create empty-action">
+                <i class="bi bi-bag-plus"></i> Explorar produtos
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

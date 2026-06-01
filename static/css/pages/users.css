@@ -1,0 +1,117 @@
+/* Organiza a lista administrativa de usuários. */
+.user-list {
+    overflow: hidden;
+    border: 1px solid var(--color-panel-border);
+    border-radius: var(--radius-md);
+    background: var(--color-panel);
+    box-shadow: var(--shadow-sm);
+}
+
+.user-list-header,
+.user-list-row {
+    display: grid;
+    grid-template-columns: minmax(220px, 1.6fr) minmax(220px, 1.4fr) minmax(120px, 0.65fr) minmax(170px, 0.8fr);
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.user-list-header {
+    padding: var(--space-4) var(--space-5);
+    color: var(--color-text-light);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.user-list-row {
+    min-height: 88px;
+    padding: var(--space-4) var(--space-5);
+    border-top: 1px solid var(--color-panel-border);
+}
+
+.user-list-main {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-width: 0;
+}
+
+.user-list-avatar {
+    display: grid;
+    flex: 0 0 42px;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    color: white;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+}
+
+.user-list-main strong,
+.user-list-main span,
+.user-list-contact span {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-list-main strong {
+    color: white;
+    font-size: 0.98rem;
+}
+
+.user-list-main span,
+.user-list-contact {
+    color: var(--color-text-light);
+    font-size: 0.86rem;
+}
+
+.user-list-contact {
+    display: grid;
+    gap: var(--space-1);
+    min-width: 0;
+}
+
+.user-list-contact i {
+    color: var(--color-accent);
+    margin-right: var(--space-1);
+}
+
+.user-role-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: 34px;
+    padding: 0 var(--space-3);
+    border-radius: var(--radius-full);
+    font-size: 0.78rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.role-admin {
+    color: #d8b4fe;
+    background: rgba(139, 92, 246, 0.16);
+}
+
+.role-user {
+    color: #93c5fd;
+    background: rgba(59, 130, 246, 0.14);
+}
+
+.user-list-action {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.user-action-btn {
+    width: 168px;
+    padding: 0 var(--space-3);
+    white-space: nowrap;
+}

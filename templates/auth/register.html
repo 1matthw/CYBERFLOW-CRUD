@@ -1,0 +1,75 @@
+{# Renderiza o cadastro de clientes com os campos principais da conta. #}
+{% extends "base.html" %}
+{% block title %}Cadastro - E-commerce{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="glass-card">
+        <div class="left-side">
+            <i class="bi bi-person-plus-fill icon-large"></i>
+            <h2>Crie sua<br>conta</h2>
+            <p>Cadastre-se para acessar todos os recursos da plataforma</p>
+            <div class="left-dots"><span></span><span></span><span></span></div>
+        </div>
+
+        <div class="right-side right-side-scroll">
+            <h2 class="stagger">Cadastro</h2>
+            <p class="subtitle stagger">Preencha os dados abaixo para criar sua conta</p>
+
+            <form method="post" action="{{ url_for('register') }}" autocomplete="on" class="needs-validation" data-validate="register" novalidate>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="input-icon stagger">
+                    <i class="bi bi-person-fill"></i>
+                    {{ form.usuario(class_="form-control", placeholder="Nome de usuário (mín. 3 caracteres)", autocomplete="username", autofocus=True, required=True, minlength="3", maxlength="80") }}
+                    {% for erro in form.usuario.errors %}<small class="field-error">{{ erro }}</small>{% endfor %}
+                </div>
+
+                <div class="input-icon stagger">
+                    <i class="bi bi-envelope-fill"></i>
+                    {{ form.email(type="email", class_="form-control", placeholder="Seu email (opcional)", autocomplete="email", maxlength="150") }}
+                    {% for erro in form.email.errors %}<small class="field-error">{{ erro }}</small>{% endfor %}
+                </div>
+
+                <div class="input-icon stagger">
+                    <i class="bi bi-telephone-fill"></i>
+                    {{ form.telefone(class_="form-control", placeholder="Telefone (opcional)", autocomplete="tel", maxlength="20") }}
+                    {% for erro in form.telefone.errors %}<small class="field-error">{{ erro }}</small>{% endfor %}
+                </div>
+
+                <div class="input-icon stagger">
+                    <i class="bi bi-geo-alt-fill"></i>
+                    {{ form.endereco(class_="form-control", placeholder="Endereço (opcional)", autocomplete="street-address", maxlength="255") }}
+                    {% for erro in form.endereco.errors %}<small class="field-error">{{ erro }}</small>{% endfor %}
+                </div>
+
+                <div class="input-icon password-container stagger">
+                    <i class="bi bi-lock-fill icon-left"></i>
+                    {{ form.senha(id="reg-senha", class_="form-control", placeholder="Crie uma senha (min. 6 caracteres)", autocomplete="new-password", required=True, minlength="6") }}
+                    <button type="button" class="toggle-password" onclick="togglePassword('reg-senha', this.querySelector('i'))">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    {% for erro in form.senha.errors %}<small class="field-error">{{ erro }}</small>{% endfor %}
+                </div>
+
+                <div class="input-icon password-container stagger">
+                    <i class="bi bi-lock-fill icon-left"></i>
+                    {{ form.confirmar_senha(id="reg-confirmar", class_="form-control", placeholder="Confirme a senha", autocomplete="new-password", required=True) }}
+                    <button type="button" class="toggle-password" onclick="togglePassword('reg-confirmar', this.querySelector('i'))">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    {% for erro in form.confirmar_senha.errors %}<small class="field-error">{{ erro }}</small>{% endfor %}
+                </div>
+
+                <button type="submit" class="btn-modern stagger">
+                    <i class="bi bi-person-check-fill"></i> Criar conta
+                </button>
+            </form>
+
+            <div class="auth-divider stagger">ou</div>
+            <div class="auth-link stagger">
+                Já tem conta? <a href="{{ url_for('login') }}">Fazer login</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

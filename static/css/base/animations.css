@@ -1,0 +1,80 @@
+/* Define animações discretas usadas em cards, botões e alertas. */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes flashSlideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+@keyframes flashSlideOut {
+    to {
+        opacity: 0;
+        transform: translate(-50%, -18px);
+    }
+}
+
+@keyframes rippleEffect {
+    to {
+        opacity: 0;
+        transform: scale(4);
+    }
+}
+
+@keyframes iconFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+@keyframes buttonGlow {
+    0% {
+        box-shadow: 0 10px 24px rgba(99, 102, 241, 0.22);
+    }
+
+    50% {
+        box-shadow: 0 14px 30px rgba(139, 92, 246, 0.28);
+    }
+
+    100% {
+        box-shadow: 0 10px 24px rgba(99, 102, 241, 0.22);
+    }
+}
+
+.stagger,
+.stagger-scale {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.stagger-scale {
+    transform: scale(0.96);
+}
+
+.stagger.show,
+.stagger-scale.show {
+    opacity: 1;
+    transform: none;
+}

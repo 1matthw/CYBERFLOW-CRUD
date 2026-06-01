@@ -1,0 +1,152 @@
+/* Padroniza botões e links com aparência de ação. */
+.btn-modern,
+.btn-buy,
+.btn-create,
+.btn-add-cart-sm,
+.btn-edit-outline,
+.btn-danger-outline,
+.btn-logout {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: 42px;
+    border: 0;
+    border-radius: var(--radius-sm);
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    transition: transform var(--transition), background var(--transition), border var(--transition), box-shadow var(--transition), color var(--transition);
+}
+
+.btn-modern,
+.btn-buy,
+.btn-create,
+.btn-add-cart-sm {
+    position: relative;
+    overflow: hidden;
+    color: white;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-modern::before,
+.btn-buy::before,
+.btn-create::before,
+.btn-add-cart-sm::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+    transform: translateX(-120%);
+    transition: transform 0.65s ease;
+}
+
+.btn-modern:hover::before,
+.btn-buy:hover::before,
+.btn-create:hover::before,
+.btn-add-cart-sm:hover::before {
+    transform: translateX(120%);
+}
+
+.btn-modern > *,
+.btn-buy > *,
+.btn-create > *,
+.btn-add-cart-sm > * {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-modern,
+.btn-buy {
+    width: 100%;
+    padding: 0 var(--space-5);
+}
+
+.btn-create,
+.btn-add-cart-sm {
+    padding: 0 var(--space-4);
+}
+
+.btn-create {
+    white-space: nowrap;
+}
+
+.btn-add-cart-sm {
+    width: 100%;
+}
+
+.btn-modern:hover,
+.btn-buy:hover,
+.btn-create:hover,
+.btn-add-cart-sm:hover,
+.btn-edit-outline:hover {
+    transform: translateY(-2px);
+}
+
+.btn-modern:hover,
+.btn-buy:hover,
+.btn-create:hover,
+.btn-add-cart-sm:hover {
+    animation: buttonGlow 1.4s ease infinite;
+}
+
+.btn-edit-outline {
+    padding: 0 var(--space-4);
+    border: 1px solid rgba(99, 102, 241, 0.22);
+    color: var(--color-primary);
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.btn-danger-outline {
+    padding: 0 var(--space-4);
+    border: 1px solid rgba(239, 68, 68, 0.24);
+    color: var(--color-danger);
+    background: rgba(239, 68, 68, 0.08);
+}
+
+.btn-danger-outline:hover {
+    color: white;
+    background: var(--color-danger);
+    box-shadow: 0 10px 24px rgba(239, 68, 68, 0.18);
+    transform: translateY(-2px);
+}
+
+.btn-disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.ripple {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(0);
+    pointer-events: none;
+    animation: rippleEffect 0.6s ease-out forwards;
+}
+
+.btn-category-create {
+    min-height: 46px;
+    padding-inline: var(--space-5);
+}
+
+.btn-category-products {
+    flex: 1 1 136px;
+    width: auto;
+    min-width: 136px;
+    padding-inline: var(--space-3);
+    white-space: nowrap;
+}
+
+.title-secondary-action {
+    min-height: 42px;
+    white-space: nowrap;
+}
+
+.user-role-current {
+    pointer-events: none;
+    white-space: nowrap;
+}
