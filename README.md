@@ -93,7 +93,7 @@ python app.py
 
 
 
-**6.** Acessar o sistema
+**6.** Acesse o sistema
 
 Após a inicialização, acesse o endereço abaixo no navegador ou utilize a URL exibida no terminal:
    
